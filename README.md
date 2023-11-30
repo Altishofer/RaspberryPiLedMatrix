@@ -4,29 +4,34 @@
 # SraLedMatrix: 
 🎉 990 Pixel Led Matrix 🎉
 
-![SraLedMatrix]
+The LED matrix features 990 ping pong balls adorned with WS2811 single controlled RGB LEDs running on very simple hardware. Originally designed for a traditional carnival festival, this project brings vibrant colors and dynamic patterns to life. Whether you're building your own LED matrix or contributing to the project, this guide provides essential high level information to get you started.
 
-This project is a LED matrix of 990 ping pong balls with WS2811 (RGB) LEDs. It was created for a traditional carnival festival in Switzerland. The LED matrix can display various animations and patterns, controlled by a Raspberry Pi.
+### Features
+- coded in a simplistic way for python newbies
+- Colorful shell emulator for coding without being connected to the matrix
+- many different creative patterns and the toolset to add more
+- coded using Multiprocessing to separate processes for increased stability
+- Excel with VBA macros for designing letters/numbers and exporting them into the code
 
 ## Installation and Setup
 
 ### Hardware
-
-- A Raspberry Pi model with GPIO pins
-- A WS2811 LED strip with 990 LEDs
-- A 5V power supply for the LED strip
-- A level shifter to convert 3.3V to 5V for the LED data signal
-- A lot of ping pong balls and a frame to hold them
+- A Raspberry Pi model (3B+ or higher)
+- 990x WS2811 DC5V RGB LED 1.2x15cm IP68 (240$)
+- DC5V 70Amps (350W) power supply, active cooled (25$) 
+- A level shifter to convert 3.3V to 5V for the LED data signal (optional 5$)
+- 990 white ping pong balls without logo (40$)
 
 ### Billboard
-- Connect the power supply to the LED strip, following the polarity of the wires
-- Connect the data input of the LED strip to GPIO18 of the Raspberry Pi, using a level shifter
-- Cut holes in the ping pong balls and insert the LEDs into them
-- Arrange the ping pong balls in a 18x55 matrix on a frame
-
-## Overview
-
-The **SraLedMatrix** project is a mesmerizing LED matrix featuring 990 ping pong balls adorned with WS2811 RGB LEDs. Originally designed for a traditional carnival festival, this project brings vibrant colors and dynamic patterns to life. Whether you're building your own LED matrix or contributing to the project, this guide provides essential information to get you started.
+- use fire proof board which has space for 18x55 ping pong balls plus frame
+- drill 990 holes so that all balls nearly touch each others
+- drill holes into the balls and glue them over the drilled holes
+- plug LEDs into drilled holes (snake pattern along the whole board)
+- solder all data pins of the LED stripes together (check polarity direction again)
+- solder blocks of 2-3 LED stripes together (more parallel power source increases brightnes)
+- connect power source to soldered LED stripes in parallel (use cables for min 70 Amps)
+- Connect the data input of the LED strip to GPIO18 of the Raspberry Pi (level shifter)
+- set brightness to minimum in code and start testing the wiring
 
 ## Installation
 
@@ -50,67 +55,32 @@ sudo reboot
 ```
 3. Install dependencies
 ```console
-foo@bar:~$ sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
-```console
+sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
 ```
-foo@bar:~$ sudo pip3 install rpi-ws281x
 ```console
-foo@bar:~$ sudo python3 -m pip install --force-reinstall adafruit-blinka
+sudo pip3 install rpi-ws281x
+```
+```console
+sudo python3 -m pip install --force-reinstall adafruit-blinka
 ```
 
 ## Trouble Shooting
-### Hardware is rare revision and not yet registered in library ([described here]([https://www.gatsbyjs.com](https://github.com/jgarff/rpi_ws281x/issues/483)))
+### Hardware is rare revision and not yet registered in library 
+```console
+foo@bar:~ws2811_init failed with code -3 (Hardware revision is not supported)
+```
+follow description ([here]([https://www.gatsbyjs.com](https://github.com/jgarff/rpi_ws281x/issues/483)))
 
-```console
-foo@bar:~$ ws2811_init failed with code -3 (Hardware revision is not supported)
-```
-Must clone repository and add to c file
-```console
-pip uninstall rpi_ws281x
-```
-```console
-sudo reboot
-```
-```console
-cat /proc/cpuinfo
-```
-Hardware	: BCM2711
-Revision	: a52082
-Serial		: 100000000ed9a28c
-Model		: Raspberry Pi 3 Model B Rev 1.2
-```console
-git clone --recurse-submodules https://github.com/rpi-ws281x/rpi-ws281x-python
-```console
-sudo nano rpi-ws281x-python/library/lib/rpihw.c
-```
-search for simila entry (Model) and add element with cpuinfo
-```console
 
-{
-    .hwver  = 0xa52082,
-    .type = RPI_HWVER_TYPE_PI2,
-    .periph_base = PERIPH_BASE_RPI2,
-    .videocore_base = VIDEOCORE_BASE_RPI2,
-    .desc = "Raspberry Pi 3 Model B Rev 1.2"
-}
-```
-ctrl+s (save) -> ctrl+x (exit)
-```console
-cd rpi-ws281x-python/library/
-```
-```console
-sudo python3 setup.py install
-```
-```console
-sudo reboot
-```
-should work now :)
-
-### no permission to edit file?
+### no permission to edit file
 ```console
 sudo chown -R pi ~/SraLedMatrix/
 ```
 
 ##Impressions
 
-![SraLedMatrix](path/to/your/image.jpg)
+<img src="https://github.com/Altishofer/SraLedMatrix/blob/main/ReadmeImages/AddPingPongBallsPlexiCover.jpg" width="250" alt="AddPingPongBallsPlexiCover"/>
+<img src="https://github.com/Altishofer/SraLedMatrix/blob/main/ReadmeImages/CoverBackFireSafety.jpg" width="250" alt="CoverBackFireSafey"/> 
+<img src="https://github.com/Altishofer/SraLedMatrix/blob/main/ReadmeImages/DebugSoftware.jpg" width="250" alt="DebugSoftware"/> 
+<img src="https://github.com/Altishofer/SraLedMatrix/blob/main/ReadmeImages/WireLedsSnakePattern.jpg" width="250" alt="WireLedsSnakePattern"/>
+
