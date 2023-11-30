@@ -86,5 +86,3 @@ ___
  <img src="https://github.com/Altishofer/raspberryPiLedMatrix/blob/main/readmeImages/CoverBackFireSafety.jpg" height="200" alt="Cover Back of Matrix Fire Proof"/> 
 </span>
 
-
-
