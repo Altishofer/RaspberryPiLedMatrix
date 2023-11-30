@@ -14,23 +14,23 @@ class Settings:
 #-----------------------------------------------------------------
 # IMPORT
 #-----------------------------------------------------------------
+# from os.path import isfile, join
+# import sys
+# import re
+# import unittest
+# import numpy
+# import matplotlib # sudo pip3 install matplotlib
+# import qrcode # sudo pip3 install qrcode[pil]
+# from PIL import Image
 import os
-from os.path import isfile, join
 import board, neopixel, time
 from datetime import datetime, timedelta
-import sys
-import re
 import multiprocessing
-import unittest
 import random
-from abc import ABC, abstractmethod
-import numpy
+from abc import ABC
 import collections
 import numpy as np
 import sounddevice as sd # sudo pip3 install sounddevice
-import matplotlib # sudo pip3 install matplotlib
-import qrcode # sudo pip3 install qrcode[pil]
-from PIL import Image
 import segno # sudo pip3 install segno-pil
 import math
 #-----------------------------------------------------------------
