@@ -1,5 +1,5 @@
-[![GitHub issues](https://img.shields.io/github/issues/Altishofer/raspberryPiLedMatrix.svg)](https://github.com/Altishofer/raspberryPiLedMatrix/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/Altishofer/raspberryPiLedMatrix.svg)](https://github.com/Altishofer/raspberryPiLedMatrix/pulls)
+[![GitHub issues](https://img.shields.io/github/issues/Altishofer/RpiLedMatrix.svg)](https://github.com/Altishofer/RpiLedMatrix/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Altishofer/RpiLedMatrix.svg)](https://github.com/Altishofer/RpiLedMatrix/pulls)
 
 # Rpi Led Matrix: 
 🎉 990 Pixel Led Matrix 🎉
@@ -7,8 +7,8 @@
 The LED matrix features 990 ping pong balls adorned with WS2811 single controlled RGB LEDs running on very simple hardware. Originally designed for a traditional carnival festival, this project brings vibrant colors and dynamic patterns to life. Whether you're building your own LED matrix or contributing to the project, this guide provides essential high level information to get you started.
 
 <span> 
-<img src="https://github.com/Altishofer/raspberryPiLedMatrix/blob/main/readmeImages/WireLedsSnakePattern.jpg" height="200" alt="WireLedsSnakePattern"/>
-<img src="https://github.com/Altishofer/raspberryPiLedMatrix/blob/main/readmeImages/DebugSoftware.jpg" height="200" alt="DebugSoftware"/> 
+<img src="https://github.com/Altishofer/RpiLedMatrix/blob/main/readmeImages/WireLedsSnakePattern.jpg" height="180" alt="WireLedsSnakePattern"/>
+<img src="https://github.com/Altishofer/RpiLedMatrix/blob/main/readmeImages/DebugSoftware.jpg" height="180" alt="DebugSoftware"/> 
  
 </span>
 
@@ -71,18 +71,18 @@ ___
 
 #### no permission to execute file
 ```console
-sudo chown -R pi ~/SraLedMatrix/
+sudo chown -R pi RpiLedMatrix/
 ```
 ___
 ### Run matrix
 ```console
-sudo python3 raspberryPiLedMatrix/ledMatrix.py
+sudo python3 RpiLedMatrix/ledMatrix.py
 ```
 ___
 ## Impressions
 
 <span>
- <img src="https://github.com/Altishofer/raspberryPiLedMatrix/blob/main/readmeImages/AddPingPongBallsPlexiCover.jpg" height="200" alt="Add Ping Pong Balls and Plexiglass Cover"/>
- <img src="https://github.com/Altishofer/raspberryPiLedMatrix/blob/main/readmeImages/CoverBackFireSafety.jpg" height="200" alt="Cover Back of Matrix Fire Proof"/> 
+ <img src="https://github.com/Altishofer/RpiLedMatrix/blob/main/readmeImages/AddPingPongBallsPlexiCover.jpg" height="200" alt="Add Ping Pong Balls and Plexiglass Cover"/>
+ <img src="https://github.com/Altishofer/RpiLedMatrix/blob/main/readmeImages/CoverBackFireSafety.jpg" height="200" alt="Cover Back of Matrix Fire Proof"/> 
 </span>
 
