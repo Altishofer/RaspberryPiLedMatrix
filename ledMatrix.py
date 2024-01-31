@@ -4,6 +4,7 @@
 """
 Altishofer
 """
+import sys
 
 
 # -----------------------------------------------------------------
@@ -345,6 +346,7 @@ class LedEmu(ABC):
         self.shell = []
         self.fill((0, 0, 0))
         self.bkCol = (0, 0, 0)  # (127, 127, 127)
+        os.system("cls")
 
     @staticmethod
     def colShell(col: tuple, text: str):
@@ -367,10 +369,10 @@ class LedEmu(ABC):
         return self.shell[x][y]
 
     def show(self):
-        desired_fps = 15
+        desired_fps = 20
         desired_delay = 1.0 / desired_fps
-        start = time.time()
-        os.system("cls")
+        # os.system("cls")
+        sys.stdout.write('\b')
         finalOutput = ""
         for y in range(self.cols):
             line = ""
@@ -383,26 +385,8 @@ class LedEmu(ABC):
             finalOutput += line + "\n"
         print(finalOutput[:len(finalOutput)//2], end="")
         print(finalOutput[len(finalOutput)//2:], end="")
-
-        render_time = time.time() - start
         if Settings.EMUL_ONLY:
-            if render_time < desired_delay:
-                time.sleep(desired_delay - render_time)
-
-    def show2(self):
-        start = time.time()
-        output = ""
-        for y in range(self.cols):
-            output += "\n"
-            for x in range(self.rows):
-                r, g, b = self.shell[x][y][0], self.shell[x][y][1], self.shell[x][y][2]
-                if self.shell[x][y] == (0, 0, 0):
-                    output += LedEmu.colShell(self.bkCol, 0)
-                else:
-                    output += LedEmu.colShell((r, g, b), 0)
-        os.system('cls')
-        print(time.time() - start)
-        # print(output)
+            time.sleep(desired_delay)
 
     def fill(self, color: tuple):
         self.shell = [([color] * self.cols) for i in range(self.rows)]
