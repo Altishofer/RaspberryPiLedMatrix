@@ -372,7 +372,6 @@ class LedEmu(ABC):
         desired_fps = 20
         desired_delay = 1.0 / desired_fps
         # os.system("cls")
-        sys.stdout.write('\b')
         finalOutput = ""
         for y in range(self.cols):
             line = ""
@@ -383,6 +382,7 @@ class LedEmu(ABC):
                 else:
                     line += LedEmu.colShell((r, g, b), "●")  # ⏺ better alternative but displayed wrong
             finalOutput += line + "\n"
+        sys.stdout.write('\b')
         print(finalOutput[:len(finalOutput)//2], end="")
         print(finalOutput[len(finalOutput)//2:], end="")
         if Settings.EMUL_ONLY:
@@ -472,20 +472,20 @@ class Runner:
                     self.show()
 
     def alternate(self):
-        self.handleSupProcess(15, self.ricoKaboom, "rico")
-        self.handleSupProcess(10, self.GPT, "GPT")
-        self.handleSupProcess(10, self.animate_pattern, "animate_pattern")
-        self.handleSupProcess(15, self.pingPong, "pingPong")
-        self.handleSupProcess(10, self.centerImpuls, "centerImpuls")
-        # self.handleSupProcess(10, self.puls, "puls")
-        self.handleSupProcess(15, self.rain, "rain")
-        # self.handleSupProcess(10, self.qrTextSmall, "qrTextSmall")
-        self.handleSupProcess(15, self.snakeBfs, "snakeBfs")
-        self.handleSupProcess(10, self.doom, "DoomFire")
-        self.handleSupProcess(10, self.runText, "runText")
-        self.handleSupProcess(10, self.runClock, "runClock")
-        self.handleSupProcess(10, self.runningStripes, "runStripes")
-        self.handleSupProcess(15, self.snakeDumb, "snakeDumb")
+        # self.handleSupProcess(15, self.ricoKaboom, "rico")
+        # self.handleSupProcess(10, self.GPT, "GPT")
+        # self.handleSupProcess(10, self.animate_pattern, "animate_pattern")
+        # self.handleSupProcess(15, self.pingPong, "pingPong")
+        # self.handleSupProcess(10, self.centerImpuls, "centerImpuls")
+        # # self.handleSupProcess(10, self.puls, "puls")
+        # self.handleSupProcess(15, self.rain, "rain")
+        # # self.handleSupProcess(10, self.qrTextSmall, "qrTextSmall")
+        self.handleSupProcess(1500, self.snakeBfs, "snakeBfs")
+        # self.handleSupProcess(10, self.doom, "DoomFire")
+        # self.handleSupProcess(10, self.runText, "runText")
+        # self.handleSupProcess(10, self.runClock, "runClock")
+        # self.handleSupProcess(10, self.runningStripes, "runStripes")
+        # self.handleSupProcess(1500000, self.snakeDumb, "snakeDumb")
 
         # self.handleSupProcess(10, self.loudVisualizer, "loudVisualizer")
 
@@ -566,9 +566,19 @@ class Runner:
     def snakeBfs(self):
 
         def getRmPos(snake=[]):
+            avgX = sum([x[0] for x in snake]) // len(snake) if snake else 54//2
+            avgY = sum([y[1] for y in snake]) // len(snake) if snake else 17//2
             while "False":
-                pos = [random.randint(0, 54), random.randint(0, 5)]
-                if pos not in snake: return pos
+                if avgX >= 55//2:
+                    newX = random.randint(0, 54//2)
+                else:
+                    newX = random.randint(54//2, 54)
+                if avgY >= 17//2:
+                    newY = random.randint(0, 17//2)
+                else:
+                    newY = random.randint(17//2, 17)
+
+                if [newX, newY] not in snake: return [newX, newY]
 
         def bfs(grid: list, start: tuple):
             queue = collections.deque([[start]])
@@ -584,7 +594,11 @@ class Runner:
                         seen.add((x2, y2))
 
         def showSnake(col=(255, 255, 255)):
-            for el in snake: self.assign(LedEmu.toN(el[0], el[1]), col)
+            for idx, el in enumerate(snake):
+                newCol = []
+                for c in col:
+                    newCol.append(c if not idx%2 else c//2)
+                self.assign(LedEmu.toN(el[0], el[1]), tuple(newCol))
             self.assign(LedEmu.toN(food[0], food[1]), (255, 0, 0))
             self.show()
             self.reset()
@@ -635,7 +649,6 @@ class Runner:
 
         snake = [getRmPos()]
         food = getRmPos(snake)
-        head = [snake[0][0], snake[0][1]]
         self.assign(LedEmu.toN(food[0], food[1]), (255, 0, 0))
 
         def up():
@@ -662,12 +675,12 @@ class Runner:
             else:
                 up()
 
-        def next(food: list):
+        def next(foodOld: list):
             self.reset()
-            snake.append(food)
-            food = getRmPos(snake)
-            self.assign(LedEmu.toN(food[0], food[1]), (255, 0, 0))
-            return food
+            snake.insert(0, foodOld)
+            foodNew = getRmPos(snake)
+            self.assign(LedEmu.toN(foodNew[0], foodNew[1]), (255, 0, 0))
+            return foodNew
 
         def showSnake(col=(255, 255, 255)):
             for el in snake: self.assign(LedEmu.toN(el[0], el[1]), col)
@@ -681,7 +694,9 @@ class Runner:
             showSnake()
 
         while "False":
-            if snake[0] == food: food = next(food)
+            if abs(snake[0][0] - food[0]) <= 1 and abs(snake[0][1] - food[1]) <= 1:
+                food = next(food)
+            # if snake[0] == food: food = next(food)
             try:
                 while snake[0][0] > food[0]: left(); move()
                 while snake[0][0] < food[0]: right(); move()
