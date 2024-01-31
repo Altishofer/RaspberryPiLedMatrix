@@ -29,7 +29,6 @@ import collections
 import numpy as np
 import segno  # sudo pip3 install segno-pil
 import math
-
 if not Settings.EMUL_ONLY:
     import board, neopixel
     import sounddevice as sd  # sudo pip3 install sounddevice
@@ -368,20 +367,23 @@ class LedEmu(ABC):
         return self.shell[x][y]
 
     def show(self):
-        desired_fps = 20
+        desired_fps = 15
         desired_delay = 1.0 / desired_fps
         start = time.time()
         os.system("cls")
-
+        finalOutput = ""
         for y in range(self.cols):
-            output = ""
+            line = ""
             for x in range(self.rows):
                 r, g, b = self.shell[x][y][0], self.shell[x][y][1], self.shell[x][y][2]
                 if self.shell[x][y] == (0, 0, 0):
-                    output += LedEmu.colShell(self.bkCol, "⏺")
+                    line += LedEmu.colShell(self.bkCol, "●")
                 else:
-                    output += LedEmu.colShell((r, g, b), "⏺")
-            print(output)
+                    line += LedEmu.colShell((r, g, b), "●")  # ⏺ better alternative but displayed wrong
+            finalOutput += line + "\n"
+        print(finalOutput[:len(finalOutput)//2], end="")
+        print(finalOutput[len(finalOutput)//2:], end="")
+
         render_time = time.time() - start
         if Settings.EMUL_ONLY:
             if render_time < desired_delay:
@@ -465,7 +467,7 @@ class Runner:
             if Time.secondsPassed(self.now, 1):
                 for dig, pos in zip(Time.getTimeDiff(), NrLetters.STARTPOSITIONS_NUMBERS): self.write(dig, pos)
                 for pos in NrLetters.NUMBERS["middlepoint"]: self.assign(pos, (
-                0, 0, 0)) if self.midPixActive else self.assign(pos, self.midCol)
+                    0, 0, 0)) if self.midPixActive else self.assign(pos, self.midCol)
                 self.midPixActive = not self.midPixActive
                 self.show()
 
