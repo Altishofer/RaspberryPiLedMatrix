@@ -4,7 +4,6 @@
 """
 Altishofer
 """
-import sys
 
 
 # -----------------------------------------------------------------
@@ -20,6 +19,7 @@ class Settings:
 # -----------------------------------------------------------------
 # IMPORT
 # -----------------------------------------------------------------
+import sys
 import os
 import time
 from datetime import datetime, timedelta
@@ -32,7 +32,7 @@ import segno  # sudo pip3 install segno-pil
 import math
 if not Settings.EMUL_ONLY:
     import board, neopixel
-    import sounddevice as sd  # sudo pip3 install sounddevice
+    # import sounddevice as sd  # sudo pip3 install sounddevice
 
 
 # -----------------------------------------------------------------
@@ -472,20 +472,20 @@ class Runner:
                     self.show()
 
     def alternate(self):
-        # self.handleSupProcess(15, self.ricoKaboom, "rico")
-        # self.handleSupProcess(10, self.GPT, "GPT")
-        # self.handleSupProcess(10, self.animate_pattern, "animate_pattern")
-        # self.handleSupProcess(15, self.pingPong, "pingPong")
+        self.handleSupProcess(15, self.ricoKaboom, "rico")
+        self.handleSupProcess(10, self.GPT, "GPT")
+        self.handleSupProcess(10, self.animate_pattern, "animate_pattern")
+        self.handleSupProcess(15, self.pingPong, "pingPong")
         # self.handleSupProcess(10, self.centerImpuls, "centerImpuls")
         # # self.handleSupProcess(10, self.puls, "puls")
-        # self.handleSupProcess(15, self.rain, "rain")
+        self.handleSupProcess(15, self.rain, "rain")
         # # self.handleSupProcess(10, self.qrTextSmall, "qrTextSmall")
         self.handleSupProcess(1500, self.snakeBfs, "snakeBfs")
-        # self.handleSupProcess(10, self.doom, "DoomFire")
-        # self.handleSupProcess(10, self.runText, "runText")
-        # self.handleSupProcess(10, self.runClock, "runClock")
-        # self.handleSupProcess(10, self.runningStripes, "runStripes")
-        # self.handleSupProcess(1500000, self.snakeDumb, "snakeDumb")
+        self.handleSupProcess(10, self.doom, "DoomFire")
+        self.handleSupProcess(10, self.runText, "runText")
+        self.handleSupProcess(10, self.runClock, "runClock")
+        self.handleSupProcess(10, self.runningStripes, "runStripes")
+        self.handleSupProcess(1500000, self.snakeDumb, "snakeDumb")
 
         # self.handleSupProcess(10, self.loudVisualizer, "loudVisualizer")
 
