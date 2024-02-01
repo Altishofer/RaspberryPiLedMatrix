@@ -474,18 +474,18 @@ class Runner:
     def alternate(self):
         self.handleSupProcess(15, self.ricoKaboom, "rico")
         self.handleSupProcess(10, self.GPT, "GPT")
-        # self.handleSupProcess(10, self.animate_pattern, "animate_pattern")
         self.handleSupProcess(15, self.pingPong, "pingPong")
-        # self.handleSupProcess(10, self.centerImpuls, "centerImpuls")
-        # self.handleSupProcess(10, self.puls, "puls")
         self.handleSupProcess(15, self.rain, "rain")
-        # self.handleSupProcess(10, self.qrTextSmall, "qrTextSmall")
         self.handleSupProcess(1500, self.snakeBfs, "snakeBfs")
         self.handleSupProcess(10, self.doom, "DoomFire")
         self.handleSupProcess(10, self.runText, "runText")
         self.handleSupProcess(10, self.runClock, "runClock")
         # self.handleSupProcess(10, self.runningStripes, "runStripes")
         # self.handleSupProcess(1500, self.snakeDumb, "snakeDumb")
+        # self.handleSupProcess(10, self.animate_pattern, "animate_pattern")
+        # self.handleSupProcess(10, self.qrTextSmall, "qrTextSmall")
+        # self.handleSupProcess(10, self.centerImpuls, "centerImpuls")
+        # self.handleSupProcess(10, self.puls, "puls")
 
     def handleSupProcess(self, tm: int, process, processName: str):
         self.p = multiprocessing.Process(target=process, name=processName, args=())
