@@ -61,6 +61,13 @@ The LED matrix features 990 ping pong balls adorned with WS2811 single controlle
  ```console
  sudo python3 -m pip install --force-reinstall adafruit-blinka
  ```
+4. Add script to autostart (optional)
+ ```console
+ sudo crontab -e
+ ```
+ ```console
+ @reboot sleep 60 && sudo python3 <absolutePathToScript>
+ ```
 ___
 ### Troubleshooting
 #### Got a rare Rpi revision (e.g. 3B 1.2) which is not compatible with rpi_ws281x library
