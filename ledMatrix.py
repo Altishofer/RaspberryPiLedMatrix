@@ -999,7 +999,7 @@ class Runner:
                 self.__outer = outerClass
                 self.__x = random.randint(2, 50)
                 self.__y = random.randint(0, 10)
-                self.__color = (NrLetters.COLORS[random.randint(0, 2)])
+                self.__color = (NrLetters.COLORS[random.randint(0, len(NrLetters.COLORS)])
                 self.__sparks = [Spark(self.__color, self.__x, self.__y, self.__outer, angle) for angle in
                                  np.linspace(0, math.pi, 100)]
                 self.__tail = self.createTail()
