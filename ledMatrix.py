@@ -386,8 +386,8 @@ class LedEmu(ABC):
             finalOutput += line + "\n"
         # os.system('cls' if os.name == 'nt' else 'clear')
         print("\n"*55)
-        print(finalOutput[:len(finalOutput) // 2], end="", flush=True)
-        print(finalOutput[len(finalOutput) // 2:], end="", flush=True)
+        print(finalOutput[:len(finalOutput) // 2], end="", flush=False)
+        print(finalOutput[len(finalOutput) // 2:], end="", flush=False)
         if Settings.EMUL_ONLY:
             time.sleep(desired_delay)
 
