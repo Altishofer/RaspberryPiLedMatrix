@@ -8,6 +8,7 @@
 Altishofer
 """
 
+
 # -----------------------------------------------------------------
 # SETTINGS
 # -----------------------------------------------------------------
@@ -21,18 +22,17 @@ class Settings:
 # -----------------------------------------------------------------
 # IMPORT
 # -----------------------------------------------------------------
-import os
 import time
 from datetime import datetime, timedelta
 import multiprocessing
 import random
-from abc import ABC, abstractmethod
+from abc import ABC
 import collections
 import numpy as np
-import segno  # sudo pip3 install segno-pil
+#import segno  # sudo pip3 install segno-pil
 import math
 import sys
-
+import os
 
 if not Settings.EMUL_ONLY:
     import board, neopixel
@@ -349,7 +349,7 @@ class LedEmu(ABC):
         self.shell = []
         self.fill((0, 0, 0))
         self.bkCol = (0, 0, 0)  # (127, 127, 127)
-        os.system("cls")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     @staticmethod
     def colShell(col: tuple, text: str):
@@ -372,10 +372,9 @@ class LedEmu(ABC):
         return self.shell[x][y]
 
     def show(self):
-        desired_fps = 20
+        desired_fps = 15
         desired_delay = 1.0 / desired_fps
-        # os.system("cls")
-        finalOutput = ""
+        finalOutput = str()
         for y in range(self.cols):
             line = ""
             for x in range(self.rows):
@@ -385,9 +384,10 @@ class LedEmu(ABC):
                 else:
                     line += LedEmu.colShell((r, g, b), "●")  # ⏺ better alternative but displayed wrong
             finalOutput += line + "\n"
-        sys.stdout.write('\b')
-        print(finalOutput[:len(finalOutput) // 2], end="")
-        print(finalOutput[len(finalOutput) // 2:], end="")
+        # os.system('cls' if os.name == 'nt' else 'clear')
+        print("\n"*55)
+        print(finalOutput[:len(finalOutput) // 2], end="", flush=True)
+        print(finalOutput[len(finalOutput) // 2:], end="", flush=True)
         if Settings.EMUL_ONLY:
             time.sleep(desired_delay)
 
@@ -410,7 +410,6 @@ class LedScreen:
         self.autoWrite = False
         self.brightness = 0.05
         self.initHardware()
-        self.pixel.fill((0, 0, 0))
 
     def initHardware(self):
         self.pixel = neopixel.NeoPixel(
@@ -420,6 +419,7 @@ class LedScreen:
             auto_write=self.autoWrite,
             pixel_order=neopixel.RGB
         )
+        self.pixel.fill((0, 0, 0))
 
 
 # -----------------------------------------------------------------
@@ -475,6 +475,7 @@ class Runner:
                     self.show()
 
     def alternate(self):
+
         self.handleSupProcess(15, self.ricoKaboom, "rico")
         self.handleSupProcess(10, self.GPT, "GPT")
         self.handleSupProcess(15, self.pingPong, "pingPong")
@@ -714,7 +715,7 @@ class Runner:
                     showSnake((255, 0, 0))
                     showSnake((255, 255, 255))
                 return
-
+    """
     def qrTextSmall(self):
         text = "blubb"
         toGen = text if len(text) <= 21 else "Text is to large"
@@ -726,6 +727,7 @@ class Runner:
                 self.assign(LedEmu.toN(x + 20, y), img.getpixel((x, y)))
         self.show()
         time.sleep(1000)
+    """
 
     def rain(self):
 
@@ -999,7 +1001,7 @@ class Runner:
                 self.__outer = outerClass
                 self.__x = random.randint(2, 50)
                 self.__y = random.randint(0, 10)
-                self.__color = (NrLetters.COLORS[random.randint(0, len(NrLetters.COLORS))])
+                self.__color = (NrLetters.COLORS[random.randint(0, len(NrLetters.COLORS)-1)])
                 self.__sparks = [Spark(self.__color, self.__x, self.__y, self.__outer, angle) for angle in
                                  np.linspace(0, math.pi, 100)]
                 self.__tail = self.createTail()
